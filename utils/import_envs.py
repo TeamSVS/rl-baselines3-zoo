@@ -1,5 +1,7 @@
+import logging
 try:
     import pybullet_envs  # pytype: disable=import-error
+
 except ImportError:
     pybullet_envs = None
 
@@ -32,3 +34,10 @@ try:
     import panda_gym  # pytype: disable=import-error
 except ImportError:
     panda_gym = None
+    
+try:
+
+    import flightmare.flightpy.flightrl.rpg_baselines.torch.envs.vec_env_wrapper	
+except Exception as e:
+    logging.error(traceback.format_exc())
+    compass_env = None

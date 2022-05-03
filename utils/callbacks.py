@@ -227,3 +227,30 @@ class RawStatisticsCallback(BaseCallback):
                 self._tensorboard_writer.write(logger_dict, exclude_dict, self._timesteps_counter)
 
         return True
+        
+class Closer(BaseCallback):
+    """
+    Callback used for logging raw episode data (return and episode length).
+    """
+
+    def __init__(self, verbose=0):
+        super().__init__(verbose)
+        pass
+
+    def _init_callback(self) -> None:
+        pass
+
+    def _on_step(self) -> bool:
+
+        return True
+        
+    def _on_training_end(self) -> None:
+        diff = ["easy", "medium", "hard"]
+        new_lvl = random.randint(0, 100)
+        model.get_env().change_obstacles(level=new_lvl, difficult=new_diff)  # )
+	
+        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        pass 
+        
+        
+        
