@@ -588,9 +588,6 @@ compass_env-v0:
     features_extractor_kwargs=dict(mode='depth',
                               pretrained_encoder_path='/home/cam/Desktop/compass/Modello/new-checkpoint.pth.tar',
                               feature_size=295),
-    activation_fn=nn.ReLU,
-    net_arch=[(295), dict(pi=([295,147]), vf=([295,147]))],
-    log_std_init=-0.5,
     normalize_images=False,
     )"
     
