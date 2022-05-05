@@ -20,15 +20,15 @@ class TrialEvalCallback(EvalCallback):
     """
 
     def __init__(
-        self,
-        eval_env: VecEnv,
-        trial: optuna.Trial,
-        n_eval_episodes: int = 5,
-        eval_freq: int = 10000,
-        deterministic: bool = True,
-        verbose: int = 0,
-        best_model_save_path: Optional[str] = None,
-        log_path: Optional[str] = None,
+            self,
+            eval_env: VecEnv,
+            trial: optuna.Trial,
+            n_eval_episodes: int = 5,
+            eval_freq: int = 10000,
+            deterministic: bool = True,
+            verbose: int = 0,
+            best_model_save_path: Optional[str] = None,
+            log_path: Optional[str] = None,
     ):
 
         super().__init__(
@@ -227,7 +227,7 @@ class RawStatisticsCallback(BaseCallback):
                 self._tensorboard_writer.write(logger_dict, exclude_dict, self._timesteps_counter)
 
         return True
-        
+
 class Closer(BaseCallback):
     """
     Callback used for logging raw episode data (return and episode length).
@@ -241,13 +241,9 @@ class Closer(BaseCallback):
         pass
 
     def _on_step(self) -> bool:
-
         return True
-        
+
     def _on_training_end(self) -> None:
         print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
         #self.training_env.envs[0].close()
         pass
-        
-        
-        
