@@ -6,6 +6,7 @@ import warnings
 from collections import OrderedDict
 from pprint import pprint
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from dronenavigation.models.compass.compass_model import CompassModel
 
 import gym
 import numpy as np
