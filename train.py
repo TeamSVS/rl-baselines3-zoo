@@ -20,14 +20,16 @@ seaborn.set()
 
 if __name__ == "__main__":  # noqa: C901
     parser = argparse.ArgumentParser()
-    parser.add_argument("--algo", help="RL Algorithm", default="ppo", type=str, required=False, choices=list(ALGOS.keys()))
+    parser.add_argument("--algo", help="RL Algorithm", default="ppo", type=str, required=False,
+                        choices=list(ALGOS.keys()))
     parser.add_argument("--env", type=str, default="CartPole-v1", help="environment ID")
     parser.add_argument("-tb", "--tensorboard-log", help="Tensorboard log dir", default="", type=str)
-    parser.add_argument("-i", "--trained-agent", help="Path to a pretrained agent to continue training", default="", type=str)
+    parser.add_argument("-i", "--trained-agent", help="Path to a pretrained agent to continue training", default="",
+                        type=str)
     parser.add_argument(
         "--truncate-last-trajectory",
         help="When using HER with online sampling the last trajectory "
-        "in the replay buffer will be truncated after reloading the replay buffer.",
+             "in the replay buffer will be truncated after reloading the replay buffer.",
         default=True,
         type=bool,
     )
@@ -37,19 +39,20 @@ if __name__ == "__main__":  # noqa: C901
     parser.add_argument(
         "--eval-freq",
         help="Evaluate the agent every n steps (if negative, no evaluation). "
-        "During hyperparameter optimization n-evaluations is used instead",
+             "During hyperparameter optimization n-evaluations is used instead",
         default=25000,
         type=int,
     )
     parser.add_argument(
         "--optimization-log-path",
         help="Path to save the evaluation log and optimal policy for each hyperparameter tried during optimization. "
-        "Disabled if no argument is passed.",
+             "Disabled if no argument is passed.",
         type=str,
     )
     parser.add_argument("--eval-episodes", help="Number of episodes to use for evaluation", default=5, type=int)
     parser.add_argument("--n-eval-envs", help="Number of environments for evaluation", default=1, type=int)
-    parser.add_argument("--save-freq", help="Save the model every n steps (if negative, no checkpoint)", default=-1, type=int)
+    parser.add_argument("--save-freq", help="Save the model every n steps (if negative, no checkpoint)", default=-1,
+                        type=int)
     parser.add_argument(
         "--save-replay-buffer", help="Save the replay buffer too (when applicable)", action="store_true", default=False
     )
@@ -60,7 +63,7 @@ if __name__ == "__main__":  # noqa: C901
     parser.add_argument(
         "--n-trials",
         help="Number of trials for optimizing hyperparameters. "
-        "This applies to each optimization runner, not the entire optimization process.",
+             "This applies to each optimization runner, not the entire optimization process.",
         type=int,
         default=500,
     )
@@ -89,7 +92,7 @@ if __name__ == "__main__":  # noqa: C901
     parser.add_argument(
         "--n-evaluations",
         help="Training policies are evaluated every n-timesteps // n-evaluations steps when doing hyperparameter optimization."
-        "Default is 1 evaluation per 100k timesteps.",
+             "Default is 1 evaluation per 100k timesteps.",
         type=int,
         default=None,
     )
@@ -106,7 +109,8 @@ if __name__ == "__main__":  # noqa: C901
         help="Additional external Gym environment package modules to import (e.g. gym_minigrid)",
     )
     parser.add_argument(
-        "--env-kwargs", type=str, nargs="+", action=StoreDict, help="Optional keyword argument to pass to the env constructor"
+        "--env-kwargs", type=str, nargs="+", action=StoreDict,
+        help="Optional keyword argument to pass to the env constructor"
     )
     parser.add_argument(
         "-params",
@@ -116,7 +120,8 @@ if __name__ == "__main__":  # noqa: C901
         action=StoreDict,
         help="Overwrite hyperparameter (e.g. learning_rate:0.01 train_freq:10)",
     )
-    parser.add_argument("-uuid", "--uuid", action="store_true", default=False, help="Ensure that the run has a unique ID")
+    parser.add_argument("-uuid", "--uuid", action="store_true", default=False,
+                        help="Ensure that the run has a unique ID")
     parser.add_argument(
         "--track",
         action="store_true",
@@ -125,7 +130,12 @@ if __name__ == "__main__":  # noqa: C901
     )
     parser.add_argument("--wandb-project-name", type=str, default="sb3", help="the wandb's project name")
     parser.add_argument("--wandb-entity", type=str, default=None, help="the entity (team) of wandb's project")
+    parser.add_argument("--gpu", type=int, default=None, help="the gpu used by torch")
     args = parser.parse_args()
+
+    if args.gpu is not None:
+        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "{}".format(args.gpu)
 
     # Going through custom gym packages to let them register in the global registory
     for env_module in args.gym_packages:
@@ -146,7 +156,7 @@ if __name__ == "__main__":  # noqa: C901
     uuid_str = f"_{uuid.uuid4()}" if args.uuid else ""
     if args.seed < 0:
         # Seed but with a random one
-        args.seed = np.random.randint(2**32 - 1, dtype="int64").item()
+        args.seed = np.random.randint(2 ** 32 - 1, dtype="int64").item()
 
     set_random_seed(args.seed)
 
