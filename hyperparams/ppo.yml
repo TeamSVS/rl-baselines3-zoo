@@ -561,8 +561,8 @@ Walker2d-v3:
   gae_lambda: 0.95
   max_grad_norm: 1
   vf_coef: 0.871923
-  
-  
+
+
 compass_env-v0:
   policy: "MultiInputPolicy"
   #normalize: True
@@ -580,9 +580,9 @@ compass_env-v0:
   #target_kl: 0.1
   #n_epochs: 10
   #batch_size: 10
-  n_steps: 200
-
-  n_timesteps: 10
+  #n_steps: 200
+  seed: 42
+  n_timesteps: 50000
   policy_kwargs: "dict(
     features_extractor_class=CompassModel,
     features_extractor_kwargs=dict(mode='depth',
@@ -590,10 +590,10 @@ compass_env-v0:
                               feature_size=295),
     normalize_images=False,
     )"
-    
+
   callback:
     - utils.callbacks.Closer:
-            verbose: 1 
+        verbose: 1
 
   
   
