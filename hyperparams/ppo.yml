@@ -581,7 +581,7 @@ compass_env-v0:
   #n_epochs: 10
   #batch_size: 10
   #n_steps: 200
-  seed: 42
+  #seed: 42 NON VALIDO!
   n_timesteps: 50000
   policy_kwargs: "dict(
     features_extractor_class=CompassModel,
