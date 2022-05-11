@@ -15,21 +15,20 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     :param trial:
     :return:
     """
-
-    batch_size = trial.suggest_categorical("batch_size", [32,64,128,256,512])  # 32, 64, 128, 256, 512
-    n_steps = trial.suggest_categorical("n_steps", [ 256,512,1024])  # 256, 512, 1024
+    batch_size = trial.suggest_categorical("batch_size", [8, 16, 32, 64, 128, 256, 512, 1024])
+    n_steps = trial.suggest_categorical("n_steps", [8, 16, 32, 64, 128, 256, 512, 1024, 2048])
     gamma = trial.suggest_categorical("gamma", [0.9, 0.95, 0.98, 0.99, 0.995, 0.999, 0.9999])
     learning_rate = trial.suggest_loguniform("learning_rate", 1e-5, 1)
     lr_schedule = "constant"
     # Uncomment to enable learning rate schedule
     # lr_schedule = trial.suggest_categorical('lr_schedule', ['linear', 'constant'])
     ent_coef = trial.suggest_loguniform("ent_coef", 0.00000001, 0.1)
-    clip_range = trial.suggest_categorical("clip_range", [0.1, 0.2, 0.3, 0.4])
-    n_epochs = trial.suggest_categorical("n_epochs", [10, 20])
+    clip_range = trial.suggest_categorical("clip_range", [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7])
+    n_epochs = trial.suggest_categorical("n_epochs", [1, 3, 5, 10, 20])
     gae_lambda = trial.suggest_categorical("gae_lambda", [0.8, 0.9, 0.92, 0.95, 0.98, 0.99, 1.0])
     max_grad_norm = trial.suggest_categorical("max_grad_norm", [0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 5])
     vf_coef = trial.suggest_uniform("vf_coef", 0, 1)
-    net_arch = trial.suggest_categorical("net_arch", ["small","medium","big"])
+    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "big"])
     # Uncomment for gSDE (continuous actions)
     # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
     # Uncomment for gSDE (continuous action)
@@ -52,7 +51,7 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     net_arch = {
         "small": [dict(pi=[64, 64], vf=[64, 64])],
         "medium": [dict(pi=[256, 256], vf=[256, 256])],
-        "big": [dict(pi=[295, 295, 147], vf=[295, 295, 147])],
+        "big": [dict(pi=[256, 256, 256], vf=[256, 256, 256])]
     }[net_arch]
 
     activation_fn = {"tanh": nn.Tanh, "relu": nn.ReLU, "elu": nn.ELU, "leaky_relu": nn.LeakyReLU}[activation_fn]

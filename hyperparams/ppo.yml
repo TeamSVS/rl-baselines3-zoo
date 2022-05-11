@@ -583,13 +583,13 @@ compass_env-v0:
   #n_steps: 200
   #seed: 42 NON VALIDO!
   n_timesteps: 50000
-  policy_kwargs: "dict(
-    features_extractor_class=CompassModel,
-    features_extractor_kwargs=dict(mode='depth',
-                              pretrained_encoder_path='/home/cam/Desktop/compass/Modello/new-checkpoint.pth.tar',
-                              feature_size=295),
-    normalize_images=False,
-    )"
+  #policy_kwargs: "dict(
+  #  features_extractor_class=CompassModel,
+  #  features_extractor_kwargs=dict(mode='depth',
+  #                            pretrained_encoder_path='/home/cam/Desktop/compass/Modello/new-checkpoint.pth.tar',
+  #                            feature_size=295),
+  #  normalize_images=False,
+  #  )"
 
   callback:
     - utils.callbacks.Closer:
